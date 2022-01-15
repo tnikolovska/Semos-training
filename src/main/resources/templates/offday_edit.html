@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+
+<body>
+<header th:replace="layout :: header"></header>
+<div class="row justify-content-center">
+    <div class="col col-md-3 text-center">
+
+        <form method="post" th:action="@{/offDay/update}" th:object="${currentOffDay}">
+            <h1 class="display-5 py-2">Edit Request</h1>
+
+            <input type="hidden" th:field="*{id}"/>
+            <div class="form-row py-1">
+                <label for="startDate">Start Date</label>
+                <input type="date" min="" id="startDate" class="form-control" th:field="*{startDate}" th:value="${currentOffDay.getStartDate()}" required />
+            </div>
+            <div class="form-row py-1">
+                <label for="endDate">End Date</label>
+                <input type="date" id="endDate" class="form-control" th:field="*{endDate}" th:value="${currentOffDay.getEndDate()}" required />
+            </div>
+            <div class="form-row py-1">
+                <label for="description">Description</label>
+                <textarea type="text" maxlength="80" id="description" class="form-control" rows="2" th:field="*{description}" th:value="${currentOffDay.getDescription()}" required></textarea>
+            </div>
+            <div class="form-row py-1 mt-3">
+                <a class="btn btn-link" href="/personOffDay/getOffDayRequests">Back</a>
+                <button type="submit" class="btn btn-info">Update</button>
+
+            </div>
+        </form>
+
+    </div>
+</div>
+<footer th:replace="layout :: footer"></footer>
+</body>
+</html>
+

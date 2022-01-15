@@ -1,0 +1,57 @@
+    <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+<header th:replace="layout :: header"></header>
+<div class="row justify-content-center">
+    <div class="col col-md-3 text-center">
+
+        <form method="post" th:action="@{/person/registerPerson}">
+            <h1 class="display-5 py-2">Register</h1>
+
+            <div class="form-row py-1">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" class="form-control" th:name="firstName" required />
+                <div></div>
+            </div>
+            <div class="form-row py-1">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" class="form-control" th:name="lastName" required/>
+            </div>
+            <div class="form-row py-1">
+                <label for="email">Email</label>
+                <input type="email" id="email" class="form-control" th:name="email" required/>
+            </div>
+            <div class="form-row py-1">
+
+                        <label for="userType">Type of User</label>
+                        <select class="form-control" id="userType" th:name="typeOfUser" required>
+                            <option value="" disabled selected>Choose...</option>
+                            <option th:value="EMPLOYEE">Employee</option>
+                            <option th:value="ASSOCIATE">Associate</option>
+                            <option th:value="GUEST">Guest</option>
+                        </select>
+
+            </div>
+            <div class="form-row py-1">
+
+                    <label class="text-left" for="activeStatus">Active Status</label>
+                    <select class="form-control" id="activeStatus" th:name="activeStatus" required>
+                        <option value=""disabled selected>Choose...</option>
+                        <option th:value="true">Active</option>
+                        <option th:value="false">Inactive</option>
+                    </select>
+
+            </div>
+            <div class="form-row py-1 mt-3">
+                <a class="btn btn-link" href="/person/displayAll">Back</a>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+<footer th:replace="layout :: footer"></footer>
+</body>
+</html>
+

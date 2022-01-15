@@ -1,0 +1,113 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+<header th:replace="layout :: header"></header>
+<div class="container main-content">
+    <nav class="navbar navbar-expand-xl navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <form action="/offDay/offDayRequests/filtered">
+                <div class="row">
+                    <div class="col-sm-2 my-1">
+                        <label for="referenceId">Reference id</label>
+                        <input type="search" class="form-control" th:name="referenceId" id="referenceId"
+                               placeholder="4356">
+                    </div>
+                    <div class="col-sm-2 my-1">
+                        <label for="nameOrSurname">First or Last Name</label>
+                        <input class="form-control" type="search" aria-label="Search"
+                               placeholder="John or Doe" th:name="nameOrSurname" id="nameOrSurname" value=""/>
+                    </div>
+                    <div class="col-auto my-1">
+                        <label for="filterType">Filter type</label>
+                        <select class="form-control" id="filterType" th:name="status">
+                            <option disabled selected value="">Status...</option>
+                            <option th:value="REQUESTED">Requested</option>
+                            <option th:value="APPROVED">Approved</option>
+                            <option th:value="DECLINED">Declined</option>
+                            <option th:value="OVERTURNED">Overturned</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3 my-1">
+                        <label>Start Date:</label>
+                        <input class="form-control" type="date" placeholder="Start Date"
+                               aria-label="Search" th:name="startDate" value=""/>
+                    </div>
+                    <div class="col-sm-3 my-1">
+                        <label>End Date: </label>
+                        <input class="form-control" type="date" placeholder="End Date"
+                               aria-label="Search" th:name="endDate" value=""/>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-5"></div>
+                    <div class="col-sm-5"></div>
+                    <div class="col-sm-1">
+                        <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                    <div class="col-sm-1">
+                        <a class="btn btn-light" href="/offDay/offDayRequests"><i class="fa fa-refresh"
+                                                                              aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </form>
+            <div class="row">
+                <form class="form-inline ml-5">
+                    <a class="btn btn-light" th:if="${currentPage > 0}"
+                       th:href="@{${redirectView}+'/page/'+${currentPage - 1}+'/'+${referenceId}+'/'+${nameOrSurname}+'/'+${startDate}+'/'+${endDate}+'/'+${status}}">Prev</a>
+                    <a class="btn btn-light disabled" th:if="${currentPage == 0}">Prev</a>
+                    <a class="btn btn-light" th:if="${currentPage < totalPages -1}"
+                       th:href="@{${redirectView}+'/page/'+${currentPage + 1}+'/'+${referenceId}+'/'+${nameOrSurname}+'/'+${startDate}+'/'+${endDate}+'/'+${status}}">Next</a>
+                    <a class="btn btn-light disabled" th:unless="${currentPage < totalPages -1}">Next</a>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <table class="table table-bordered border-dark">
+        <thead>
+        <tr class="text-center">
+            <th>ReferenceID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Description</th>
+            <th>Days Requested</th>
+            <th>Remaining</th>
+            <th>Status</th>
+            <th>Operation</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="offDay : ${offDayList}" th:style="${offDayStat.odd}? 'background-color:#F5F5F5'"
+            class="text-center">
+            <td th:text="${offDay.getReferenceID()}"></td>
+            <td th:text="${offDay.getName()}"></td>
+            <td th:text="${offDay.getSurname()}"></td>
+            <td th:text="${offDay.getStartDate()}"></td>
+            <td th:text="${offDay.getEndDate()}"></td>
+            <td th:text="${offDay.getDescription()}"></td>
+            <td th:text="${offDay.getNumberOfDAysRequested()}"></td>
+            <td th:text="${offDay.getNumberOfDaysLeft()}"></td>
+            <td th:text="${offDay.getStatus()}"></td>
+            <td th:if="${offDay.getStatus()==T(com.project.holidaymanagementproject.model.Status).REQUESTED}">
+                <a th:href="@{/offDay/validate/{id}(id=${offDay.getOffDayId()})}" class="btn btn-info">Validate</a>
+            </td>
+            <td th:unless="${offDay.getStatus()==T(com.project.holidaymanagementproject.model.Status).REQUESTED}">
+                /
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

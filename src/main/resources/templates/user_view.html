@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+<header th:replace="layout :: header"></header>
+<div class="container main-content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="btn" href="/personOffDay/getOffDayRequests"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-light" href="/offDay/registerOffDay">Create holiday request</a>
+                </li>
+            </ul>
+            <form class="form-inline ml-5">
+                <a class="btn btn-light"  th:if="${currentPage > 0}" th:href="@{${redirectView}+'/page/'+${currentPage - 1}}">Prev</a>
+                <a class="btn btn-light disabled" th:if="${currentPage == 0}">Prev</a>
+
+                <a class="btn btn-light"  th:if="${currentPage < totalPages -1}" th:href="@{${redirectView}+'/page/'+${currentPage + 1}}">Next</a>
+                <a class="btn btn-light disabled" th:unless="${currentPage < totalPages -1}">Next</a>
+            </form>
+        </div>
+    </nav>
+    <table class="table table-bordered border-dark">
+        <thead>
+        <tr class="text-center">
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="offDay : ${offDayList}" th:style="${offDayStat.odd}? 'background-color:#F5F5F5'" class="text-center">
+            <td th:text="${offDay.getStartDate()}"></td>
+            <td th:text="${offDay.getEndDate()}"></td>
+            <td th:text="${offDay.getDescription()}"></td>
+            <td th:text="${offDay.getStatus()}"></td>
+            <td th:if="${offDay.getStatus()==T(com.project.holidaymanagementproject.model.Status).REQUESTED}"><a th:href="@{/offDay/editOffDayView/{id}(id=${offDay.getId()})}" class="btn btn-info">Edit</a></td>
+            <td th:unless="${offDay.getStatus()==T(com.project.holidaymanagementproject.model.Status).REQUESTED}">/</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

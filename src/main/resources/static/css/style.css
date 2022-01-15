@@ -1,0 +1,64 @@
+.main-content {
+    min-height: 500px;
+    max-width: 700px;
+    margin-top: 70px;
+}
+
+.list {
+    max-width: 800px;
+}
+
+.form {
+    max-width: 450px;
+}
+
+.row {
+    margin-top: 30px;
+}
+
+.table th, td {
+    text-align: center;
+}
+
+.field-error {
+    border: 1px solid #ff0000;
+    margin-bottom: 10px;
+}
+
+:root {
+    --jumbotron-padding-y: 3rem;
+}
+
+.jumbotron {
+    padding-top: var(--jumbotron-padding-y);
+    padding-bottom: var(--jumbotron-padding-y);
+    margin-bottom: 0;
+    background-color: #fff;
+}
+@media (min-width: 768px) {
+    .jumbotron {
+        padding-top: calc(var(--jumbotron-padding-y) * 2);
+        padding-bottom: calc(var(--jumbotron-padding-y) * 2);
+    }
+}
+
+.jumbotron p:last-child {
+    margin-bottom: 0;
+}
+
+.jumbotron-heading {
+    font-weight: 300;
+}
+
+.jumbotron .container {
+    max-width: 40rem;
+}
+
+footer {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+footer p {
+    margin-bottom: .25rem;
+}

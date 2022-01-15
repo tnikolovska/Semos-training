@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+<header th:replace="layout :: header"></header>
+
+<div class="container main-content">
+    <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+            <div class="text-right">
+                <a th:href="@{/import/webService}" class="btn btn-dark"><span
+                        class="fa fa-database pull-left">  Import holidays</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="list-group d-flex flex-row flex-wrap" th:if="${holidayList}">
+                <a href="#" th:each="holiday : ${holidayList}"
+                   class="list-group-item w-50 list-group-item-action">
+                    <i class="fa fa-plane"></i> <span th:text="${holiday.getName()}"></span> <span
+                        class="badge badge-info pull-right" th:text="${holiday.getDate()}"></span>
+                </a>
+
+            </div>
+            <div th:if="${noHolidays}" class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">No holidays imported!</h4>
+                <p>Please import the public holidays clicking on the link above.</p>
+                <hr>
+                <p class="mb-0">Holidays are imported from public API with a REST call.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+<footer th:replace="layout :: footer"></footer>
+</body>
+</html>
