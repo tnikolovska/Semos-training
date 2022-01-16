@@ -147,6 +147,17 @@
 			</resource>
 		</resources>
 	</build>
-
+	<distributionManagement>
+		<repository>
+			<id>deployment</id>
+			<name>Internal Releases</name>
+			<url>http://localhost:8081/repository/SAMPLE-RELEASE/</url>
+		</repository>
+		<snapshotrepository>
+			<id>deployment</id>
+			<name>Internal Snapshot Releases</name>
+			<url>http://localhost:8081/repository/SAMPLE-SNAP/</url>
+		<snapshotrepository>
+	</distributionManagement>
 
 </project>
